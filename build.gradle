@@ -1,0 +1,30 @@
+plugins {
+	id 'com.google.cloud.tools.jib' version '1.2.0'
+}
+
+apply plugin: 'java'
+
+subprojects {
+
+	apply plugin: 'java'
+	jib {
+		from {
+			image = 'openjdk:11'
+		}
+		to {
+			image = 'thaneesh/jibtest'
+		}
+		container {
+			jvmFlags = ['-Xms512m', '-Xdebug']
+			mainClass = 'com.example.JibTest.JibTestApplication'
+			args = []
+			ports = ['8080/tcp']
+		}
+	}
+	sourceCompatibility = '11'
+	repositories {
+		jcenter()
+		mavenCentral()
+	}
+
+}
